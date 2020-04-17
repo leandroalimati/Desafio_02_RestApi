@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "313b5770-185b-4cce-8dd3-a63f433e598b",
+		"name": "The Open Movie Database",
+		"description": "Utilizacao de testes em API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Buscar Filme",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0e3e3f6-bb57-4260-acf3-950543103eb5",
+						"exec": [
+							"//Atribuir o resultado do Json à uma variável",
+							"    var jsonData = pm.response.json();",
+							"",
+							"//Verificar resposta correta da requisição",
+							"    pm.test(\"Status da requisição 200-OK\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"//Validar Título, Ano e Idioma do filme",
+							"    pm.test(\"Validar Título do filme\", function () {",
+							"        pm.expect(jsonData.Title).to.equal(\"The Social Network\");",
+							"    });",
+							"    ",
+							"    pm.test(\"Validar Ano do filme\", function () {",
+							"        pm.expect(jsonData.Year).to.equal(\"2010\");",
+							"    });",
+							"    ",
+							"    pm.test(\"Validar idioma(s) do filme\", function () {",
+							"        pm.expect(jsonData.Language).to.equal(\"English, French\");",
+							"    });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "API_KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "52ec71bf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}i={{ID_DO_FILME}}&apikey={{API_KEY}}",
+					"host": [
+						"{{domain}}i={{ID_DO_FILME}}&apikey={{API_KEY}}"
+					]
+				},
+				"description": "Validar Buscar filme por:\n\t- Título\n\t- Ano\n\t- Idioma(s)"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar ID Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0e3e3f6-bb57-4260-acf3-950543103eb5",
+						"exec": [
+							"//Atribuir o resultado do Json à uma variável",
+							"    var jsonData = pm.response.json();",
+							"",
+							"//Verificar resposta correta da requisição",
+							"    pm.test(\"Status da requisição 200-OK\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"//Resposta esperada",
+							"    pm.test(\"ID Incorreto\", function () {",
+							"        pm.expect(jsonData.Response).to.equal(\"False\");",
+							"        pm.expect(jsonData.Error).to.equal(\"Incorrect IMDb ID.\");",
+							"    });",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "API_KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "52ec71bf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{domain}}i={{ID_FILME_INEXISTENTE}}&apikey={{API_KEY}}",
+					"host": [
+						"{{domain}}i={{ID_FILME_INEXISTENTE}}&apikey={{API_KEY}}"
+					]
+				},
+				"description": "Validar id inexistente"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Title Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0e3e3f6-bb57-4260-acf3-950543103eb5",
+						"exec": [
+							"//Atribuir o resultado do Json à uma variável",
+							"    var jsonData = pm.response.json();",
+							"",
+							"//Verificar resposta correta da requisição",
+							"    pm.test(\"Status da requisição 200-OK\", function () {",
+							"        pm.response.to.have.status(200);",
+							"    });",
+							"",
+							"//Validar ausencia de um Título",
+							"    pm.test(\"Título do filme não encontrado\", function () {",
+							"        pm.expect(jsonData.Response).to.equal(\"False\");",
+							"        pm.expect(jsonData.Error).to.equal(\"Movie not found!\");",
+							"    });",
+							"    "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "API_KEY",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "52ec71bf",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{domain}}t={{TITLE_FILME_INEXISTENTE}}&apikey={{API_KEY}}",
+					"host": [
+						"{{domain}}t={{TITLE_FILME_INEXISTENTE}}&apikey={{API_KEY}}"
+					]
+				},
+				"description": "Validar título do filme inexistente"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "in",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "API_KEY",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "52ec71bf",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6a91fc1d-3bff-489e-b985-51524f860e5f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f592aef5-8a21-4a55-a2ab-6c49123cd026",
+				"type": "text/javascript",
+				"exec": [
+					"//Verificar tempo da resposta",
+					"    tests[\"Resposta abaixo de 400ms\"] = responseTime < 400;"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
